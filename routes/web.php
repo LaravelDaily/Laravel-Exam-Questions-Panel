@@ -31,12 +31,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('categories', 'CategoriesController');
 
     // Questions
+    Route::get('questions/create-vue', 'QuestionsController@createVue')->name('questions.createVue');
     Route::delete('questions/destroy', 'QuestionsController@massDestroy')->name('questions.massDestroy');
     Route::resource('questions', 'QuestionsController');
-
-    // Question Options
-    Route::delete('question-options/destroy', 'QuestionOptionsController@massDestroy')->name('question-options.massDestroy');
-    Route::resource('question-options', 'QuestionOptionsController');
 
     // Exams
     Route::delete('exams/destroy', 'ExamsController@massDestroy')->name('exams.massDestroy');

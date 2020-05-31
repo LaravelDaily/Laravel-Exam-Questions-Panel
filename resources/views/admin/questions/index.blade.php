@@ -6,6 +6,9 @@
             <a class="btn btn-success" href="{{ route("admin.questions.create") }}">
                 {{ trans('global.add') }} {{ trans('cruds.question.title_singular') }}
             </a>
+            <a class="btn btn-success" href="{{ route("admin.questions.createVue") }}">
+                {{ trans('global.add') }} {{ trans('cruds.question.title_singular') }} Vue
+            </a>
         </div>
     </div>
 @endcan
@@ -38,6 +41,9 @@
                             {{ trans('cruds.question.fields.answer_explanation') }}
                         </th>
                         <th>
+                            {{ trans('cruds.questionOption.title') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -62,6 +68,13 @@
                             </td>
                             <td>
                                 {{ $question->answer_explanation ?? '' }}
+                            </td>
+                            <td>
+                                <ol>
+                                    @foreach($question->options as $option)
+                                        <li @if($option->is_correct)class="font-weight-bold"@endif>{{ $option->option_text }}</li>
+                                    @endforeach
+                                </ol>
                             </td>
                             <td>
                                 @can('question_show')

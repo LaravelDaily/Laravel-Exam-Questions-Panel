@@ -18,7 +18,7 @@ class QuestionsController extends Controller
     {
         abort_if(Gate::denies('question_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $questions = Question::all();
+        $questions = Question::with('options')->get();
 
         return view('admin.questions.index', compact('questions'));
     }
@@ -32,9 +32,25 @@ class QuestionsController extends Controller
         return view('admin.questions.create', compact('categories'));
     }
 
+    public function createVue()
+    {
+        abort_if(Gate::denies('question_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.questions.createVue', compact('categories'));
+    }
+
     public function store(StoreQuestionRequest $request)
     {
         $question = Question::create($request->all());
+
+        foreach ($request->input('option_text') as $index => $optionText) {
+            $question->options()->create([
+                'option_text' => $optionText,
+                'is_correct'  => $request->input('is_correct.' . $index)
+            ]);
+        }
 
         return redirect()->route('admin.questions.index');
     }

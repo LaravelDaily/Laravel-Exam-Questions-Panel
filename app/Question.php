@@ -37,4 +37,9 @@ class Question extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function options()
+    {
+        return $this->hasMany(QuestionOption::class);
+    }
 }

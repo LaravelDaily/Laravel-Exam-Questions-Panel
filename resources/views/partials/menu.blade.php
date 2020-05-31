@@ -72,16 +72,6 @@
                     </a>
                 </li>
             @endcan
-            @can('question_option_access')
-                <li class="nav-item">
-                    <a href="{{ route("admin.question-options.index") }}" class="nav-link {{ request()->is('admin/question-options') || request()->is('admin/question-options/*') ? 'active' : '' }}">
-                        <i class="fa-fw fas fa-cogs nav-icon">
-
-                        </i>
-                        {{ trans('cruds.questionOption.title') }}
-                    </a>
-                </li>
-            @endcan
             @can('exam_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.exams.index") }}" class="nav-link {{ request()->is('admin/exams') || request()->is('admin/exams/*') ? 'active' : '' }}">
